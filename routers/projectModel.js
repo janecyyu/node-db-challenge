@@ -6,7 +6,10 @@ module.exports = {
   getResources,
   addResource,
   getTasks,
-  addTask
+  addTask,
+  findProject,
+  updateProject,
+  removeProject,
 };
 
 function getProjects() {
@@ -35,6 +38,18 @@ function getTasks() {
     );
 }
 
-function addTask(data){
+function addTask(data) {
   return db("tasks").insert(data, "id");
+}
+
+function findProject(id) {
+  return db("projects").where({ id }).first();
+}
+
+function updateProject(changes, id) {
+  return db("projects").where({ id }).update(changes);
+}
+
+function removeProject(id) {
+  return db("projects").where({ id }).del();
 }
