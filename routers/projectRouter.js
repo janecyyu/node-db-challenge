@@ -50,4 +50,29 @@ router.post("/resources", (req, res) => {
     });
 });
 
+// retrieving a list of tasks.
+// include the project name and project description.
+router.get('/tasks',(req,res)=>{
+    api
+    .getTasks()
+    .then((tasks) => {
+      res.json(tasks);
+    })
+    .catch((err) => {
+      res.status(500).json({ message: "Failed to get projects" });
+    });
+})
+
+// adding tasks
+router.post("/tasks", (req, res) => {
+    api
+      .addTask(req.body)
+      .then((task) => {
+        res.status(201).json(task);
+      })
+      .catch((err) => {
+        res.status(500).json({ message: "Failed to create new task" });
+      });
+  });
+
 module.exports = router;
